@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electronic Office Security Awareness Quiz — Staff</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#00335f; --navy2:#0a4d86; --blue:#0a6eb4;
+    --ink:#1c2733; --ink2:#3c4a5a; --mute:#475569;
+    --bg:#ffffff; --surface:#f4f7fa; --surface2:#eef3f8;
+    --line:#dde4ec; --line2:#cbd6e2;
+    --safe:#1f7a4d; --safe-ink:#155c39; --safe-bg:#eef6f1; --safe-line:#c4e2d1;
+    --danger:#b4322a; --danger-ink:#8a271f; --danger-bg:#fbeeec; --danger-line:#eac6c1;
+    --warn:#a4690f; --warn-bg:#fcf3e2; --warn-line:#eed9ab;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scrollbar-color:var(--line2) transparent}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Atkinson Hyperlegible","Helvetica Neue",Arial,system-ui,sans-serif;
+    line-height:1.5;font-variant-numeric:tabular-nums}
+  ::selection{background:#cfe2f2;color:var(--navy)}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:3px}
+  ::-webkit-scrollbar{width:11px;height:11px}
+  ::-webkit-scrollbar-thumb{background:var(--line2);border-radius:99px;border:3px solid var(--bg)}
+  button{font:inherit}
+
+  .wrap{max-width:760px;margin:0 auto;padding:0 18px 80px}
+
+  .mast{display:flex;align-items:center;gap:11px;padding:20px 0 16px;border-bottom:1px solid var(--line)}
+  .mast .mark{width:30px;height:30px;flex:none;color:var(--navy)}
+  .mast .org{font-weight:700;font-size:14px;color:var(--navy);letter-spacing:.01em}
+  .mast .org span{display:block;font-weight:400;font-size:12px;color:var(--mute);letter-spacing:0;margin-top:1px}
+
+  .hero{padding:32px 0 6px}
+  .hero h1{font-weight:700;font-size:clamp(25px,5.4vw,34px);line-height:1.12;
+    letter-spacing:-0.015em;margin:0 0 14px;color:var(--navy);text-wrap:balance}
+  .hero p{margin:0;max-width:60ch}
+  .lead{margin:0;max-width:60ch;font-size:16.5px;font-weight:500;color:var(--ink);line-height:1.45}
+  .sub{margin:14px 0 0;max-width:60ch;font-size:16.5px;font-weight:500;color:var(--ink);line-height:1.45}
+  .facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .facts span{font-size:12.5px;font-weight:600;color:var(--navy);background:var(--surface2);
+    border:1px solid var(--line);padding:5px 11px;border-radius:5px}
+
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:8px;
+    padding:24px 24px 20px;margin-top:20px;box-shadow:0 1px 2px rgba(28,39,51,.05),0 8px 20px -14px rgba(0,51,95,.22)}
+
+  .intro-h{font-weight:700;font-size:19px;color:var(--navy);margin:0 0 12px;letter-spacing:-0.01em}
+  .intro p{font-size:14.5px;color:var(--ink2);margin:0 0 12px}
+  .intro p:last-of-type{margin-bottom:0}
+  .intro b{color:var(--ink);font-weight:700}
+
+  .track{display:flex;gap:4px;height:8px;margin:0 0 2px}
+  .seg{flex:1;background:var(--surface2);border-radius:3px;transition:background .3s ease}
+  .seg.current{background:var(--line2)}
+  .seg.ok{background:var(--safe)}
+  .seg.no{background:var(--danger)}
+
+  .meta{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+  .chip{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.02em;color:var(--navy);
+    background:var(--surface2);border:1px solid var(--line);padding:4px 10px;border-radius:5px;margin-bottom:14px}
+  .scenario{font-size:15.5px;color:var(--ink2);margin:0 0 18px;line-height:1.55}
+  .scenario b{color:var(--ink);font-weight:700}
+  h2.q{font-weight:700;font-size:17.5px;line-height:1.3;margin:2px 0 16px;color:var(--navy);letter-spacing:-0.01em}
+
+  .opt{display:flex;gap:12px;width:100%;text-align:left;background:var(--bg);border:1px solid var(--line2);
+    border-radius:7px;padding:13px 15px;margin:9px 0;font-size:14.5px;color:var(--ink2);cursor:pointer;
+    transition:border-color .13s,background .13s;align-items:flex-start}
+  .opt:hover{border-color:var(--blue);background:var(--surface)}
+  .opt .k{font-weight:700;color:var(--navy);flex:none;width:16px}
+  .opt .svg{flex:none;width:19px;height:19px;margin-left:auto;opacity:0;transition:opacity .13s}
+  .opt.correct{border-color:var(--safe);background:var(--safe-bg)}
+  .opt.correct .svg{opacity:1;color:var(--safe)}
+  .opt.wrong{border-color:var(--danger);background:var(--danger-bg)}
+  .opt.wrong .svg{opacity:1;color:var(--danger)}
+  .opt.dim{opacity:.5}
+  .opt:disabled{cursor:default}
+
+  .fb{margin-top:16px;border-radius:7px;padding:15px 16px;font-size:14px;display:none}
+  .fb.show{display:block;animation:rise .25s ease-out}
+  .fb.good{background:var(--safe-bg);border:1px solid var(--safe-line);color:var(--safe-ink)}
+  .fb.bad{background:var(--danger-bg);border:1px solid var(--danger-line);color:var(--danger-ink)}
+  .fb .vh{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px;margin-bottom:7px}
+  .fb.good .vh{color:var(--safe)} .fb.bad .vh{color:var(--danger)}
+  .fb .vh svg{width:18px;height:18px;flex:none}
+  .fb b{font-weight:700}
+
+  .report{margin-top:11px;display:none;background:#eef5fb;border:1px solid #c7ddf0;
+    border-radius:7px;padding:13px 15px;font-size:13.5px;color:#14466a}
+  .report.show{display:flex;gap:10px;align-items:flex-start}
+  .report svg{width:18px;height:18px;flex:none;margin-top:1px;color:var(--blue)}
+  .report b{color:#0f3b5c;font-weight:700}
+
+  .nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:14px}
+  #qnav{position:sticky;bottom:0;margin-top:14px;padding:12px 0;background:var(--bg);border-top:1px solid var(--line)}
+  html{scroll-padding-bottom:84px}
+  .count{font-size:13px;color:var(--navy);font-weight:700;margin:20px 0 8px}
+  .btn{background:var(--navy);color:#fff;border:1px solid var(--navy);border-radius:6px;
+    padding:11px 24px;font-size:14.5px;font-weight:700;cursor:pointer;transition:background .13s}
+  .btn:hover{background:var(--navy2);border-color:var(--navy2)}
+  .btn:disabled{opacity:.35;cursor:not-allowed}
+  .btn.ghost{background:transparent;color:var(--navy)}
+  .btn.ghost:hover{background:var(--surface2)}
+
+  .rhero{text-align:center;padding:4px 0 2px}
+  .ring{width:144px;height:144px;margin:4px auto 12px;border-radius:50%;display:grid;place-items:center}
+  .ring .inner{width:108px;height:108px;background:var(--bg);border-radius:50%;display:grid;place-items:center;align-content:center}
+  .ring .pct{font-weight:700;font-size:31px;color:var(--navy);line-height:1}
+  .ring .lbl{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);margin-top:3px}
+  .scoreline{font-size:14px;color:var(--ink2);font-weight:600}
+
+  .outcome{border-radius:7px;padding:18px;margin-top:16px;font-size:14.5px}
+  .outcome.pass{background:var(--safe-bg);border:1px solid var(--safe-line)}
+  .outcome.fail{background:var(--warn-bg);border:1px solid var(--warn-line)}
+  .outcome .oh{display:flex;align-items:center;gap:9px;font-weight:700;font-size:16.5px;margin-bottom:7px;letter-spacing:-0.01em}
+  .outcome.pass .oh{color:var(--safe-ink)} .outcome.fail .oh{color:#6f4a0c}
+  .outcome .oh svg{width:20px;height:20px;flex:none}
+  .outcome.pass .oh svg{color:var(--safe)} .outcome.fail .oh svg{color:var(--warn)}
+  .outcome p{margin:.2em 0 0;color:var(--ink2)}
+  ul.tight{margin:11px 0 0;padding-left:19px;font-size:13.8px;color:var(--ink2)} ul.tight li{margin:5px 0}
+  ul.tight b{color:var(--ink);font-weight:700}
+
+  .rev-h{font-weight:700;font-size:15px;color:var(--navy);margin:22px 0 4px;letter-spacing:-0.01em}
+  .item{border:1px solid var(--line);border-radius:7px;padding:11px 13px;margin:9px 0;display:flex;gap:11px;align-items:flex-start;font-size:13.5px}
+  .item .mk{width:20px;height:20px;flex:none;margin-top:1px}
+  .item .mk.ok{color:var(--safe)} .item .mk.no{color:var(--danger)}
+  .item b{font-weight:700;color:var(--ink)}
+  .item .sa{color:var(--mute);display:block;margin-top:2px}
+
+  .foot{text-align:center;color:var(--mute);font-size:12px;margin-top:30px;line-height:1.6}
+  .hidden{display:none}
+  @keyframes rise{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mast">
+    <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 2.5l7.5 3v5.3c0 4.6-3.1 8-7.5 9.4-4.4-1.4-7.5-4.8-7.5-9.4V5.5z"/>
+      <path d="M9.2 12.2l2 2 3.6-3.9"/>
+    </svg>
+    <div class="org">Govern d'Andorra<span>Electronic Office · Information Security Management</span></div>
+  </div>
+
+  <div class="hero">
+    <h1>Security awareness and assessment</h1>
+  </div>
+
+  <section id="intro">
+    <p class="lead">Eight situations you might run into at work, across the Taxation Portal, Citizen Subsidies, Notifications and Payments.</p>
+    <p class="sub">Pick an answer for each one, then you'll see why it was safe or risky and what you should actually do if it happens. You get a score at the end, plus a next step if you need it.</p>
+    <div style="margin-top:24px"><button class="btn" onclick="start()">Start</button></div>
+  </section>
+
+  <section id="quiz" class="hidden">
+    <div class="count" id="counter"></div>
+    <div class="track" id="track"></div>
+    <div class="card" id="qcard"></div>
+    <div class="nav" id="qnav" style="justify-content:flex-end">
+      <button class="btn" id="nextBtn" disabled onclick="next()">Next</button>
+    </div>
+  </section>
+
+  <section id="results" class="hidden">
+    <div class="card">
+      <div class="rhero">
+        <div class="ring" id="ring"><div class="inner"><span class="pct" id="pct">0%</span><span class="lbl">Score</span></div></div>
+        <div class="scoreline" id="scoreline"></div>
+      </div>
+      <div id="outcome"></div>
+      <div id="review"></div>
+      <div class="nav" style="justify-content:center;margin-top:22px">
+        <button class="btn ghost" onclick="restart()">Retake</button>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const HOTLINE = "ISM hotline (ext. 4040) / incident@eoffice.ad";
+const I = {
+  check:'<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5 5 11-11.5"/></svg>',
+  cross:'<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  alert:'<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L2 20h20L12 3z"/><path d="M12 10v4M12 17.5v.01"/></svg>',
+  flag:'<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg>',
+  info:'<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11.5v4.5M12 7.8v.01"/></svg>'
+};
+const questions = [
+  { chip:"Spear-phishing · Credential theft",
+    scenario:"An email from <b>it-suport@andorra-digital-cloud.ad</b> says the Office's private cloud is migrating tonight and your account will be locked unless you \"re-validate\" within 2 hours through the linked portal. The page looks exactly like our staff login.",
+    q:"What is the safest action?",
+    opts:["Click the link and log in quickly so your account isn't locked before the tax campaign.","Check the sender domain and the link, enter no credentials, and report it to the ISM hotline.","Forward it to a colleague to ask if they got it too, then decide.","Reply to the email asking IT to confirm the migration is genuine."],
+    answer:1,
+    why:{ok:"Our provider is <b>Andorra Digital</b>. The address <b>andorra-digital-cloud.ad</b> just looks similar, it's fake. A tight deadline plus a login page that copies ours is a classic way to steal staff passwords, and stolen logins are basically the biggest security problem right now. Don't log in from a link in an email you weren't expecting. Open the portal from your own bookmark instead.",
+         no:"If you log in there, your password goes straight to the attacker. Replying or forwarding doesn't really check anything either. They control that inbox, and a coworker saying they got it too doesn't make it real."},
+    report:"Don't click. Report it to <b>"+HOTLINE+"</b> and get to the login through your bookmark. If you already typed your password, call the hotline right away so they can lock the account." },
+  { chip:"MFA abuse · YubiKey",
+    scenario:"Someone phones claiming to be from the SOC. They say there's an attack in progress, they already have your password, and to \"secure the account\" they need you to read back the code generated when you touch your YubiKey.",
+    q:"How do you respond?",
+    opts:["Touch the YubiKey and read the code so the SOC can lock the attacker out.","Give it, but only after they tell you your employee ID to prove they're internal.","Share no MFA output, hang up, and call the SOC or ISM back on the official number.","Disable your YubiKey for now so no codes can be misused."],
+    answer:2,
+    why:{ok:"Them already having your password should worry you, not reassure you. They've got one factor and they're trying to get the second one out of you. The SOC never needs your YubiKey code. The whole point of it is that a stolen password on its own is useless. Hang up and call back on a number you find yourself.",
+         no:"If you read the code back, you've basically finished logging them in. An employee ID can be looked up or guessed, so it proves nothing, and turning off your YubiKey just removes the thing protecting you."},
+    report:"Hang up and call the SOC or ISM on the official number, not the one the caller gave you. Report it to <b>"+HOTLINE+"</b>. A call like this usually means your password is already out there." },
+  { chip:"Smishing · Portal impersonation",
+    scenario:"A citizen forwards you an SMS they received: clear Catalan, \"Govern d'Andorra — your subsidy is on hold, confirm your bank details here: govern-tramits.ad/subvencio\". They ask whether your Office sent it.",
+    q:"What do you tell them and do?",
+    opts:["Tell them it's probably fine since the Catalan and branding look official.","Tell them the Govern never asks for bank details or passwords by SMS or email, not to click, and report the domain.","Ask them to open the link and tell you what it requests so you can judge.","Tell them to enter the details, since withholding them could delay the subsidy."],
+    answer:1,
+    why:{ok:"Good Catalan and a copied portal are easy to make now, so a message looking legit means nothing. The rule is simple: the Govern never asks for passwords or bank or card details by SMS or email. <b>govern-tramits.ad</b> isn't an official address. Real procedures need a digital certificate or the national e-ID app on the real site.",
+         no:"Trusting how the message looks is exactly what the attacker wants. If the citizen opens the link or types in their details, their account can get taken over and the subsidy sent to the criminal."},
+    report:"Tell the citizen to delete it and not type anything in. Report the fake address to <b>"+HOTLINE+"</b> so it can be taken down and added to the public warnings." },
+  { chip:"Legacy systems · MFA gap",
+    scenario:"You need to fix a subsidy record fast. The modern console enforces YubiKey login, but there's an old admin panel that still accepts just a username and password and would save you ten minutes.",
+    q:"Which do you use?",
+    opts:["The old panel, since it's faster and it's an internal tool anyway.","The old panel, but change your password to a very strong one first.","The MFA-protected console, and flag the legacy panel to ISM so it gets MFA or is retired.","Either is fine as long as you're on the office network."],
+    answer:2,
+    why:{ok:"Old admin panels with no MFA are one of the easiest ways a single stolen password turns into a full breach. Policy is YubiKey login on every staff account, old panels included. Use the protected one and get the weak panel closed.",
+         no:"A strong password still gets phished or reused, so one factor is the actual problem. Being 'internal' or on the office network doesn't protect anything once someone's already inside."},
+    report:"Use the MFA console. Report the single-factor panel to <b>"+HOTLINE+"</b> so it gets MFA or gets shut off." },
+  { chip:"Ransomware · Malicious delivery",
+    scenario:"An email titled \"Urgent security patch — apply before the tax campaign\" has a ZIP attachment and claims to be from your software vendor. A regional shopping centre was just hit by ransomware, so patching feels urgent.",
+    q:"What do you do?",
+    opts:["Open the ZIP and run the installer, since patching quickly is what we're told to do.","Don't run it; verify the update through the vendor's official channel and ISM, following the patching procedure.","Scan the ZIP with your laptop antivirus and run it if it's clean.","Forward it to the whole team so everyone patches at once."],
+    answer:1,
+    why:{ok:"Attackers lean on real urgency on purpose. A ransomware case nearby makes a fake 'urgent patch' more believable, not less. Real updates come through the vendor's proper channel and our managed process, not a random ZIP in your inbox. The rule is a three-day patch window for internet-facing systems after a confirmed alert, done through controlled channels.",
+         no:"Running the installer could literally be the ransomware. Your laptop antivirus won't catch brand-new malware, and forwarding it just spreads the risk to everyone."},
+    report:"Don't open it. Report it to <b>"+HOTLINE+"</b> and let the SOC check the patch against the vendor's real advisory. The 24/7 SOC and the isolated backups are there for this, but it starts with not running the file." },
+  { chip:"Social engineering · Procedure bypass",
+    scenario:"A caller, warm and authoritative, says they're a senior director. A resident urgently needs their subsidy today, so they ask you to change the citizen's registered bank account \"just this once\" and skip the certificate and notification step.",
+    q:"What is the correct action?",
+    opts:["Make the change, since a director's instruction overrides the normal procedure.","Make the change but log that the director authorised it, to cover yourself.","Decline the shortcut; require the digital certificate and the citizen notification, and verify the request through the official channel.","Change it and send the confirmation to the director instead of the citizen."],
+    answer:2,
+    why:{ok:"Pressure plus a senior title plus \"just this once\" is the usual way people get talked into skipping a control. The rule is there on purpose: changing bank details needs the citizen's digital certificate <b>and</b> a notification to them, so no single person can quietly redirect a payment. A director's rank doesn't turn that off.",
+         no:"Skipping the step, even with a note 'for cover', is how the Govern ends up paying a subsidy to a criminal. Sending the confirmation to the caller instead of the citizen kills the one check that would warn the real account holder."},
+    report:"Say no to the shortcut and check who the caller is through the official internal directory. Report the pressure to <b>"+HOTLINE+"</b>, even if the caller turns out to be real." },
+  { chip:"Deepfake voice · Vishing",
+    scenario:"You get a voice message — clearly your department head's voice — authorising an immediate, out-of-process payment release and asking you to 'handle it discreetly, I'm in a meeting and can't be reached'.",
+    q:"How do you proceed?",
+    opts:["Release the payment, since you clearly recognise the voice.","Treat the voice as unverifiable, confirm out-of-band through a known channel before acting, and report it.","Reply to the voicemail asking them to confirm again by voice.","Release it but keep the voicemail as proof of authorisation."],
+    answer:1,
+    why:{ok:"Voice cloning, the same thing behind those Salesforce deepfake cases, can copy a voice from a few seconds of audio, so recognising it doesn't prove who it is anymore. \"Urgent, discreet, can't be reached\" is built to stop you checking. Confirm on a separate channel you trust, like their official number or asking a manager in person.",
+         no:"Acting on the voice alone is the trap. Replying by voice can just hit the same fake channel, and a cloned voicemail doesn't prove anything."},
+    report:"Don't act on a voice message alone. Confirm through a channel you trust and report it to <b>"+HOTLINE+"</b>. A discreet, out-of-process payment is high risk by default." },
+  { chip:"AI chatbot · Data handling",
+    scenario:"You're helping pilot the Office's new citizen chatbot. A teammate suggests connecting it directly to the live subsidy database \"so it can answer anything\", and testing it with real residents' records to make demos realistic.",
+    q:"What position do you take?",
+    opts:["Agree, since broad access and real data make the chatbot more useful and the demo convincing.","Insist the chatbot launches only after a security test, with least-privilege access and no real citizen data in testing.","Connect it to everything now and restrict access later once it's live.","Use real citizen records for the demo but delete them afterwards."],
+    answer:1,
+    why:{ok:"The real AI risk here isn't some magic hack. It's that a system we run becomes another way into citizen data, through prompt injection or just having too much access. The safe move: launch only after a security test, give the chatbot the least data it needs, and keep real resident records out of testing.",
+         no:"Hooking it up to the live database with real data makes any single bug or injection as bad as it can get. 'Restrict it later' and 'delete it after' both leave real citizen data exposed in the meantime, and by then it's already leaked."},
+    report:"Bring it up with ISM before anything gets connected. Report shortcuts that expose citizen data to <b>"+HOTLINE+"</b>. The security team has to sign off the chatbot's access and its test data." }
+];
+
+let idx=0, chosen=[], answered=false;
+const $=id=>document.getElementById(id);
+
+function renderSegments(){
+  let s='';
+  for(let i=0;i<questions.length;i++){
+    let cls='seg';
+    if(chosen[i]!=null) cls += chosen[i]===questions[i].answer ? ' ok' : ' no';
+    else if(i===idx) cls += ' current';
+    s += `<div class="${cls}"></div>`;
+  }
+  $('track').innerHTML=s;
+}
+
+function start(){ $('intro').classList.add('hidden'); $('quiz').classList.remove('hidden'); render(); }
+function render(){
+  answered=false;
+  const q=questions[idx];
+  $('counter').textContent = `Question ${idx+1} of ${questions.length}`;
+  renderSegments();
+  $('nextBtn').disabled=true;
+  $('nextBtn').textContent = idx===questions.length-1 ? 'See results' : 'Next';
+  let html = `<div class="scenario">${q.scenario}</div><h2 class="q">${q.q}</h2><div id="opts">`;
+  q.opts.forEach((o,i)=>{ html += `<button class="opt" onclick="choose(${i})"><span class="k">${String.fromCharCode(65+i)}</span><span>${o}</span><span class="svg"></span></button>`; });
+  html += `</div><div class="fb" id="fb" role="status" aria-live="polite"></div><div class="report" id="rep"></div>`;
+  $('qcard').innerHTML=html;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function choose(i){
+  if(answered) return;
+  answered=true; chosen[idx]=i;
+  const q=questions[idx];
+  document.querySelectorAll('#opts .opt').forEach((b,bi)=>{ b.disabled=true;
+    if(bi===q.answer){ b.classList.add('correct'); b.querySelector('.svg').innerHTML=I.check; }
+    else if(bi===i){ b.classList.add('wrong'); b.querySelector('.svg').innerHTML=I.cross; }
+    else b.classList.add('dim');
+  });
+  const ok = i===q.answer;
+  const fb=$('fb');
+  fb.className='fb show '+(ok?'good':'bad');
+  fb.innerHTML = `<div class="vh">${ok?I.check:I.cross}${ok?'Correct:':'Not Safe.'}</div>${ok?q.why.ok:q.why.no}`;
+  const rep=$('rep'); rep.className='report show';
+  rep.innerHTML = `${I.info}<div><b>If this happens for real:</b> ${q.report}</div>`;
+  renderSegments();
+  $('nextBtn').disabled=false;
+  $('fb').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function next(){ if(idx<questions.length-1){ idx++; render(); } else finish(); }
+function finish(){
+  $('quiz').classList.add('hidden'); $('results').classList.remove('hidden');
+  const correct = chosen.reduce((a,c,i)=> a + (c===questions[i].answer?1:0),0);
+  const pct = Math.round(correct/questions.length*100);
+  const pass = pct>=80;
+  const col = pass? 'var(--safe)' : (pct>=50? 'var(--warn)':'var(--danger)');
+  $('ring').style.background = `conic-gradient(${col} ${pct}%, var(--surface2) 0)`;
+  $('pct').textContent=pct+'%';
+  $('scoreline').textContent = `${correct} of ${questions.length} scenarios handled safely`;
+  let o='';
+  if(pass){
+    o = `<div class="outcome pass"><div class="oh">${I.check}Passed</div>
+      <p>You got over 80%. You can spot the attacks most likely to hit the Electronic Office and you know how to report them. Nothing else needed this round.</p>
+      <ul class="tight">
+        <li>Keep reporting anything that looks off to <b>${HOTLINE}</b>, even when you're not sure.</li>
+        <li>Your completion is saved for this round.</li>
+        <li>The next drill is part of the twice-a-year phishing programme.</li>
+      </ul></div>`;
+  } else {
+    o = `<div class="outcome fail"><div class="oh">${I.alert}Follow-up needed</div>
+      <p>You ended up under 80%, so there's a short follow-up. It's just to help you out, not a problem for you. Until then, be extra careful with anything about logins, payments, or bank details.</p>
+      <ul class="tight">
+        <li>Someone from the cybersecurity team will set up a <b>15-minute one-to-one</b> with you.</li>
+        <li>Retake the quiz after that to get over the pass mark.</li>
+        <li>If you're not sure about a real request before then, check with <b>${HOTLINE}</b> first.</li>
+      </ul></div>`;
+  }
+  $('outcome').innerHTML=o;
+  let r='<div class="rev-h">Your answers</div>';
+  questions.forEach((q,i)=>{
+    const ok = chosen[i]===q.answer;
+    r += `<div class="item"><span class="mk ${ok?'ok':'no'}">${ok?I.check:I.cross}</span>
+      <div><b>Scenario ${i+1}</b><span class="sa">Safe action, ${String.fromCharCode(65+q.answer)}: ${q.opts[q.answer]}</span></div></div>`;
+  });
+  $('review').innerHTML=r;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function restart(){ idx=0; chosen=[]; answered=false; $('results').classList.add('hidden'); $('quiz').classList.remove('hidden'); render(); }
+</script>
+</body>
+</html>
